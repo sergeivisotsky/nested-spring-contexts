@@ -1,0 +1,21 @@
+---
+version: '3.1'
+services:
+
+  orchestra-app:
+    image: sergei/contexts:orchestra-app-latest
+    container_name: orchestra-app
+    environment:
+      JAVA_OPTIONS: ' -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1010 -Xms64m -Xmx512m'
+    build:
+      context: ../orchestra-app
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+      - 1010:1010
+    networks:
+      - contexts-network
+
+networks:
+  contexts-network:
+    driver: bridge
